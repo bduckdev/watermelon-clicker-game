@@ -30,8 +30,6 @@ let redBulls = 0;
 
 let speed = 1000;
 
-let helperImpact = 1;
-
 // FUNCTIONS
 function addScore(amount) {
   score = score + amount;
@@ -54,7 +52,7 @@ function giveRedBull() {
   if (score >= redBullCost) {
     score = score - redBullCost;
     redBulls = redBulls + 1;
-    redBullCost = Math.round(redBullCost * 5);
+    redBullCost = Math.round(redBullCost * 1.5);
 
     scoreDisplay.innerHTML = score;
     redBullCostDisplay.innerHTML = redBullCost;
@@ -72,10 +70,10 @@ scoreButton.addEventListener("click", () => {
 
 helperButton.addEventListener("click", () => {
   redBullButton.classList.remove("hidden");
-  redBullHeading.classList.remove("hidden");
   enlistHelp();
 });
 redBullButton.addEventListener("click", () => {
+  redBullHeading.classList.remove("hidden");
   giveRedBull();
 });
 
