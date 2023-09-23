@@ -15,6 +15,8 @@ let redBullDisplay = document.querySelector("#redbulls");
 
 let redBullCostDisplay = document.querySelector("#redbullcost");
 
+const redBullHeading = document.querySelector(".game__red_bulls");
+
 // VARIABLES
 let score = 0;
 
@@ -26,8 +28,6 @@ let redBullCost = 5;
 
 let redBulls = 0;
 
-let secretRedBulls = redBulls + 1;
-
 let speed = 1000;
 
 let helperImpact = 1;
@@ -36,14 +36,6 @@ let helperImpact = 1;
 function addScore(amount) {
   score = score + amount;
   scoreDisplay.innerHTML = score;
-}
-
-function getHelperImpact() {
-  if (helpers != 0 && redBulls != 0) {
-    helperImpact = helpers + secretRedBulls;
-  } else {
-    helperImpact = helpers;
-  }
 }
 
 function enlistHelp() {
@@ -69,6 +61,10 @@ function giveRedBull() {
     redBullDisplay.innerHTML = redBulls;
   }
 }
+function getScore() {
+  score = score + helpers;
+  scoreDisplay.innerHTML = score;
+}
 // EVENT LISTENERS
 scoreButton.addEventListener("click", () => {
   addScore(1);
@@ -76,6 +72,7 @@ scoreButton.addEventListener("click", () => {
 
 helperButton.addEventListener("click", () => {
   redBullButton.classList.remove("hidden");
+  redBullHeading.classList.remove("hidden");
   enlistHelp();
 });
 redBullButton.addEventListener("click", () => {
@@ -83,9 +80,4 @@ redBullButton.addEventListener("click", () => {
 });
 
 // INTERVALS
-
-setInterval(function () {
-  getHelperImpact();
-  score = score + helperImpact;
-  scoreDisplay.innerHTML = score;
-}, speed);
+setInterval(getScore, speed);
