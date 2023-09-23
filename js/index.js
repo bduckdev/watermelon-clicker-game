@@ -75,6 +75,7 @@ scoreButton.addEventListener("click", () => {
 });
 
 helperButton.addEventListener("click", () => {
+  redBullButton.classList.remove("hidden");
   enlistHelp();
 });
 redBullButton.addEventListener("click", () => {
