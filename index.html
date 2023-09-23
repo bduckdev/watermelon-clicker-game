@@ -11,12 +11,26 @@
       <h1 class="header__title">VERY COOL WATERMELON CLICKER GAME</h1>
     </header>
     <main class="game">
-      <h2 class="game__score">
+      <h2 class="game__heading game__score">
         <span id="game_score-number">0</span> WATERMELONS
       </h2>
-      <button class="game__give-watermelon" id="give-wm">
-        GIVE ME WATERMELON
-      </button>
+      <h2 class="game__heading game__helpers">
+        <span id="game_helper-number">0</span> HELPERS
+      </h2>
+      <h2 class="game__heading game__red_bulls">
+        <span id="redbulls">0</span> RED BULLS
+      </h2>
+      <div class="game__buttons">
+        <button class="game__button game__give-watermelon" id="give-wm">
+          HARVEST WATERMELON
+        </button>
+        <button class="game__button game__add-helper" id="enlisthelp">
+          ENLIST HELP [<span id="helpercost">5</span>]
+        </button>
+        <button class="game__button game__add-redbull" id="give-redbull">
+          BUY RED BULL FOR HELPERS [<span id="redbullcost">5</span>]
+        </button>
+      </div>
       <img
         src="./images/no-revisions-Fa8lOzYsTss-unsplash-removebg-preview.png"
         alt="super epic and based watermelon!"
