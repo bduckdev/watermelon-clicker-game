@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Watermelon Clicker</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <h1 class="header__title">VERY COOL WATERMELON CLICKER GAME</h1>
+    </header>
+    <main class="game">
+      <h2 class="game__score">
+        <span id="game_score-number">0</span> WATERMELONS
+      </h2>
+      <button class="game__give-watermelon" id="give-wm">
+        GIVE ME WATERMELON
+      </button>
+      <img
+        src="./images/no-revisions-Fa8lOzYsTss-unsplash-removebg-preview.png"
+        alt="super epic and based watermelon!"
+        class="watermelon"
+        onclick="addScore(1)"
+      />
+    </main>
+  </body>
+  <script src="./js/index.js"></script>
+</html>
