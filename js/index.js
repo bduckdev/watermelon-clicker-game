@@ -3,11 +3,13 @@ const scoreButton = document.querySelector("#give-wm");
 
 const helperButton = document.querySelector("#enlisthelp");
 
-const redBullButton = document.querySelector("#give-redbull");
+const superHelperButton = document.querySelector("#add-superhelper");
 
 const saveButton = document.querySelector("#savegame");
 
 const loadButton = document.querySelector("#loadgame");
+
+const resetButton = document.querySelector("#resetgame");
 
 let scoreDisplay = document.querySelector("#game_score-number");
 
@@ -15,11 +17,11 @@ let helpersDisplay = document.querySelector("#game_helper-number");
 
 let helperCostDisplay = document.querySelector("#helpercost");
 
-let redBullDisplay = document.querySelector("#redbulls");
+let superHelperDisplay = document.querySelector("#superhelpers");
 
-let redBullCostDisplay = document.querySelector("#redbullcost");
+let superHelperCostDisplay = document.querySelector("#superhelpercost");
 
-const redBullHeading = document.querySelector(".game__red_bulls");
+const superHelperHeading = document.querySelector(".game__super_helpers");
 
 let speedDisplay = document.querySelector("#game_score-per-second");
 
@@ -30,9 +32,9 @@ let helpers = 0;
 
 let helperCost = 5;
 
-let redBullCost = 25;
+let superHelperCost = 25;
 
-let redBulls = 0;
+let superHelpers = 0;
 
 // FUNCTIONS
 function addScore(amount) {
@@ -41,8 +43,8 @@ function addScore(amount) {
 }
 
 function getScore() {
-  let redBullModifier = redBulls * 5;
-  score = score + helpers + redBullModifier;
+  let superHelperModifier = superHelpers * 5;
+  score = score + helpers + superHelperModifier;
   scoreDisplay.innerHTML = score;
 }
 
@@ -59,15 +61,15 @@ function enlistHelp() {
   }
 }
 
-function giveRedBull() {
-  if (score >= redBullCost) {
-    score = score - redBullCost;
-    redBulls = redBulls + 1;
-    redBullCost = Math.round(redBullCost * 1.5);
+function enlistSuperHelper() {
+  if (score >= superHelperCost) {
+    score = score - superHelperCost;
+    superHelpers = superHelpers + 1;
+    superHelperCost = Math.round(superHelperCost * 1.5);
 
     scoreDisplay.innerHTML = score;
-    redBullCostDisplay.innerHTML = redBullCost;
-    redBullDisplay.innerHTML = redBulls;
+    superHelperCostDisplay.innerHTML = superHelperCost;
+    superHelperDisplay.innerHTML = superHelpers;
     updateSpeedDisplay();
   }
 }
@@ -76,21 +78,28 @@ function saveGame() {
   let gameSave = {
     score: score,
     helpers: helpers,
-    redBulls: redBulls,
+    superHelpers: superHelpers,
   };
   localStorage.setItem("gameSave", JSON.stringify(gameSave));
 }
 
 function loadGame() {
   let savedGame = JSON.parse(localStorage.getItem("gameSave"));
-  if (typeof savedGame.score !== undefined) score = savedGame.score;
-  if (typeof savedGame.helpers !== undefined) helpers = savedGame.helpers;
-  if (typeof savedGame.redBulls !== undefined) redBulls = savedGame.redBulls;
-  updateSpeedDisplay;
+  if (typeof savedGame.score !== "undefined") score = savedGame.score;
+  if (typeof savedGame.helpers !== "undefined") helpers = savedGame.helpers;
+  if (typeof savedGame.superHelpers !== "undefined")
+    superHelpers = savedGame.superHelpers;
 }
 
 function updateSpeedDisplay() {
-  speedDisplay.innerHTML = helpers + redBulls;
+  speedDisplay.innerHTML = helpers + superHelpers;
+}
+function resetGame() {
+  if (confirm("Are you sure you want to reset EVERYTHING?")) {
+    let gameSave = {};
+    localStorage.setItem("gameSave", JSON.stringify(gameSave));
+    location.reload();
+  }
 }
 // EVENT LISTENERS
 scoreButton.addEventListener("click", () => {
@@ -98,12 +107,12 @@ scoreButton.addEventListener("click", () => {
 });
 
 helperButton.addEventListener("click", () => {
-  redBullButton.classList.remove("hidden");
+  superHelperButton.classList.remove("hidden");
   enlistHelp();
 });
-redBullButton.addEventListener("click", () => {
-  redBullHeading.classList.remove("hidden");
-  giveRedBull();
+superHelperButton.addEventListener("click", () => {
+  superHelperHeading.classList.remove("hidden");
+  enlistSuperHelper();
 });
 saveButton.addEventListener("click", () => {
   saveGame();
@@ -111,7 +120,9 @@ saveButton.addEventListener("click", () => {
 loadButton.addEventListener("click", () => {
   loadGame();
 });
-
+resetButton.addEventListener("click", () => {
+  resetGame();
+});
 // On load events
 window.onload = () => {
   loadGame();
@@ -119,8 +130,8 @@ window.onload = () => {
   scoreDisplay.innerHTML = score;
   helpersDisplay.innerHTML = helpers;
   helperCostDisplay.innerHTML = helperCost;
-  redBullDisplay.innerHTML = redBulls;
-  redBullCostDisplay.innerHTML = redBullCost;
+  superHelperDisplay.innerHTML = superHelpers;
+  superHelperCostDisplay.innerHTML = superHelperCost;
 };
 
 // INTERVALS

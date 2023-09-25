@@ -20,8 +20,8 @@
       <h2 class="game__heading game__helpers">
         <span id="game_helper-number">0</span> HELPERS
       </h2>
-      <h2 class="game__heading game__red_bulls hidden">
-        <span id="redbulls">0</span> RED BULLS
+      <h2 class="game__heading game__super_helpers hidden">
+        <span id="superhelpers">0</span> SUPER HELPERS
       </h2>
       <div class="game__buttons">
         <button class="game__button game__give-watermelon" id="give-wm">
@@ -30,8 +30,11 @@
         <button class="game__button game__add-helper" id="enlisthelp">
           ENLIST HELP [<span id="helpercost">5</span>]
         </button>
-        <button class="game__button game__add-redbull hidden" id="give-redbull">
-          BUY RED BULL FOR HELPERS [<span id="redbullcost">25</span>]
+        <button
+          class="game__button game__add-super_helper hidden"
+          id="add-superhelper"
+        >
+          ENLIST SUPER HELPER [<span id="superhelpercost">25</span>]
         </button>
       </div>
       <img
@@ -43,8 +46,11 @@
         <button class="game__button game__savebutton" id="savegame">
           Save Game
         </button>
-        <button class="game__button game__savebutton" id="loadgame">
+        <button class="game__button game__loadbutton" id="loadgame">
           Load Game
+        </button>
+        <button class="game__button game__reset__button" id="resetgame">
+          Reset Game
         </button>
       </div>
     </main>
