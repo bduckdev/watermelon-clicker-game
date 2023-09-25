@@ -5,6 +5,10 @@ const helperButton = document.querySelector("#enlisthelp");
 
 const redBullButton = document.querySelector("#give-redbull");
 
+const saveButton = document.querySelector("#savegame");
+
+const loadButton = document.querySelector("#loadgame");
+
 let scoreDisplay = document.querySelector("#game_score-number");
 
 let helpersDisplay = document.querySelector("#game_helper-number");
@@ -17,6 +21,8 @@ let redBullCostDisplay = document.querySelector("#redbullcost");
 
 const redBullHeading = document.querySelector(".game__red_bulls");
 
+let speedDisplay = document.querySelector("#game_score-per-second");
+
 // VARIABLES
 let score = 0;
 
@@ -24,15 +30,19 @@ let helpers = 0;
 
 let helperCost = 5;
 
-let redBullCost = 5;
+let redBullCost = 25;
 
 let redBulls = 0;
-
-let speed = 1000;
 
 // FUNCTIONS
 function addScore(amount) {
   score = score + amount;
+  scoreDisplay.innerHTML = score;
+}
+
+function getScore() {
+  let redBullModifier = redBulls * 5;
+  score = score + helpers + redBullModifier;
   scoreDisplay.innerHTML = score;
 }
 
@@ -45,6 +55,7 @@ function enlistHelp() {
     scoreDisplay.innerHTML = score;
     helpersDisplay.innerHTML = helpers;
     helperCostDisplay.innerHTML = helperCost;
+    updateSpeedDisplay();
   }
 }
 
@@ -57,11 +68,29 @@ function giveRedBull() {
     scoreDisplay.innerHTML = score;
     redBullCostDisplay.innerHTML = redBullCost;
     redBullDisplay.innerHTML = redBulls;
+    updateSpeedDisplay();
   }
 }
-function getScore() {
-  score = score + helpers;
-  scoreDisplay.innerHTML = score;
+
+function saveGame() {
+  let gameSave = {
+    score: score,
+    helpers: helpers,
+    redBulls: redBulls,
+  };
+  localStorage.setItem("gameSave", JSON.stringify(gameSave));
+}
+
+function loadGame() {
+  let savedGame = JSON.parse(localStorage.getItem("gameSave"));
+  if (typeof savedGame.score !== undefined) score = savedGame.score;
+  if (typeof savedGame.helpers !== undefined) helpers = savedGame.helpers;
+  if (typeof savedGame.redBulls !== undefined) redBulls = savedGame.redBulls;
+  updateSpeedDisplay;
+}
+
+function updateSpeedDisplay() {
+  speedDisplay.innerHTML = helpers + redBulls;
 }
 // EVENT LISTENERS
 scoreButton.addEventListener("click", () => {
@@ -76,6 +105,25 @@ redBullButton.addEventListener("click", () => {
   redBullHeading.classList.remove("hidden");
   giveRedBull();
 });
+saveButton.addEventListener("click", () => {
+  saveGame();
+});
+loadButton.addEventListener("click", () => {
+  loadGame();
+});
+
+// On load events
+window.onload = () => {
+  loadGame();
+  updateSpeedDisplay();
+  scoreDisplay.innerHTML = score;
+  helpersDisplay.innerHTML = helpers;
+  helperCostDisplay.innerHTML = helperCost;
+  redBullDisplay.innerHTML = redBulls;
+  redBullCostDisplay.innerHTML = redBullCost;
+};
 
 // INTERVALS
-setInterval(getScore, speed);
+setInterval(getScore, 1000);
+
+setInterval(saveGame, 5000);
